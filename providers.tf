@@ -1,0 +1,12 @@
+terraform {
+  required_providers {
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 5.16.0"
+    }
+  }
+}
+
+provider "cloudflare" {
+  # This block is purposely empty
+}
