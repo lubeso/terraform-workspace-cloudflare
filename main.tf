@@ -34,6 +34,6 @@ resource "cloudflare_dns_record" "subdomains" {
 }
 
 import {
-  to = cloudflare_dns_record.subdomains["letterbox"]
-  id = "${cloudflare_zone.main.id}/${var.dns_record_ids["letterbox"]}"
+  to = cloudflare_dns_record.subdomains["learning"]
+  id = "${cloudflare_zone.main.id}/${var.dns_record_ids["learning"]}"
 }
