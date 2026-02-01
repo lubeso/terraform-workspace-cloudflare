@@ -47,12 +47,11 @@ resource "cloudflare_dns_record" "icloud_mail_servers" {
 }
 
 resource "cloudflare_dns_record" "icloud_mail_spoof_protection" {
-  zone_id  = cloudflare_zone.main.id
-  name     = "@"
-  ttl      = 3600
-  type     = "TXT"
-  priority = 10
-  content  = "v=spf1 include:icloud.com ~all"
+  zone_id = cloudflare_zone.main.id
+  name    = "@"
+  ttl     = 3600
+  type    = "TXT"
+  content = "\"v=spf1 include:icloud.com ~all\""
 }
 
 import {
