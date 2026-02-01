@@ -71,8 +71,3 @@ resource "cloudflare_dns_record" "icloud_mail_spoof_protection" {
   type    = "TXT"
   content = "\"v=spf1 include:icloud.com ~all\""
 }
-
-import {
-  to = cloudflare_dns_record.icloud_mail_dkim
-  id = "${cloudflare_zone.main.id}/${var.icloud_mail_dkim_dns_record_id}"
-}
