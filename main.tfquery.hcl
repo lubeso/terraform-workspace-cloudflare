@@ -1,3 +1,7 @@
-list "cloudflare_account" "all" {}
+list "cloudflare_account" "all" {
+  provider = "cloudflare"
+}
 
-list "cloudflare_zone" "all" {}
+list "cloudflare_zone" "all" {
+  provider = "cloudflare"
+}
