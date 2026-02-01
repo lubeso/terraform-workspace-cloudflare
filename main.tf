@@ -35,7 +35,7 @@ resource "cloudflare_dns_record" "subdomains" {
 
 resource "cloudflare_dns_record" "icloud_mail_servers" {
   for_each = {
-    for i in range(1)
+    for i in range(2)
     : format("%02d", i + 1) => true
   }
   zone_id  = cloudflare_zone.main.id
@@ -47,6 +47,6 @@ resource "cloudflare_dns_record" "icloud_mail_servers" {
 }
 
 import {
-  to = cloudflare_dns_record.icloud_mail_servers["01"]
-  id = "${cloudflare_zone.main.id}/${var.icloud_mail_server_dns_record_ids["01"]}"
+  to = cloudflare_dns_record.icloud_mail_servers["02"]
+  id = "${cloudflare_zone.main.id}/${var.icloud_mail_server_dns_record_ids["02"]}"
 }
