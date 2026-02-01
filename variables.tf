@@ -2,7 +2,7 @@ variable "account_name" {
   type = string
 }
 
-variable "icloud_mail_spoof_protection_dns_record_id" {
+variable "icloud_mail_personal_dns_record_id" {
   type = string
 }
 
@@ -16,4 +16,9 @@ variable "ip_address" {
 
 variable "subdomains" {
   type = list(string)
+}
+
+variable "icloud_mail_personal_domain" {
+  type      = string
+  sensitive = true
 }

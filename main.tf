@@ -46,6 +46,14 @@ resource "cloudflare_dns_record" "icloud_mail_servers" {
   content  = "mx${each.key}.mail.icloud.com"
 }
 
+resource "cloudflare_dns_record" "icloud_mail_personal" {
+  zone_id = cloudflare_zone.main.id
+  name    = "@"
+  ttl     = 3600
+  type    = "TXT"
+  content = "\"apple-domain=${var.icloud_mail_personal_domain}\""
+}
+
 resource "cloudflare_dns_record" "icloud_mail_spoof_protection" {
   zone_id = cloudflare_zone.main.id
   name    = "@"
@@ -55,6 +63,6 @@ resource "cloudflare_dns_record" "icloud_mail_spoof_protection" {
 }
 
 import {
-  to = cloudflare_dns_record.icloud_mail_spoof_protection
-  id = "${cloudflare_zone.main.id}/${var.icloud_mail_spoof_protection_dns_record_id}"
+  to = cloudflare_dns_record.icloud_mail_personal
+  id = "${cloudflare_zone.main.id}/${var.icloud_mail_personal_dns_record_id}"
 }
