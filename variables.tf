@@ -15,6 +15,5 @@ variable "subdomains" {
 }
 
 variable "icloud_mail_personal_domain" {
-  type      = string
-  sensitive = true
+  type = string
 }
