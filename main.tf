@@ -11,7 +11,16 @@ resource "cloudflare_zone" "main" {
   type = "full"
 }
 
+resource "cloudflare_dns_record" "main" {
+  zone_id = cloudflare_zone.main.id
+  name    = "@"
+  ttl     = 1
+  type    = "A"
+  proxied = false
+  content = var.ip_address
+}
+
 import {
-  to = cloudflare_zone.main
-  id = var.zone_id
+  to = cloudflare_dns_record.main
+  id = var.dns_record_id
 }
