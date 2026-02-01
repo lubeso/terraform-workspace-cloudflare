@@ -34,13 +34,12 @@ resource "cloudflare_dns_record" "subdomains" {
 }
 
 resource "cloudflare_dns_record" "icloud_mail_dkim" {
-  zone_id  = cloudflare_zone.main.id
-  name     = "sig1._domainkey"
-  ttl      = 3600
-  type     = "CNAME"
-  priority = 10
-  proxied  = false
-  content  = "sig1.dkim.${cloudflare_zone.main.name}.at.icloudmailadmin.com"
+  zone_id = cloudflare_zone.main.id
+  name    = "sig1._domainkey"
+  ttl     = 3600
+  type    = "CNAME"
+  proxied = false
+  content = "sig1.dkim.${cloudflare_zone.main.name}.at.icloudmailadmin.com"
 }
 
 resource "cloudflare_dns_record" "icloud_mail_servers" {
