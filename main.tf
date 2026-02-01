@@ -33,7 +33,22 @@ resource "cloudflare_dns_record" "subdomains" {
   content = var.ip_address
 }
 
+resource "cloudflare_dns_record" "icloud_mail_servers" {
+  for_each = {
+    for i in range(1)
+    : format("%02d", i + 1) => true
+  }
+  zone_id  = cloudflare_zone.main.id
+  name     = "@"
+  ttl      = 1
+  type     = "MX"
+  priority = 10
+  data = {
+    value = "mx${each.key}.mail.icloud.com"
+  }
+}
+
 import {
-  to = cloudflare_dns_record.subdomains["learning"]
-  id = "${cloudflare_zone.main.id}/${var.dns_record_ids["learning"]}"
+  to = cloudflare_dns_record.icloud_mail_servers["01"]
+  id = "${cloudflare_zone.main.id}/${var.icloud_mail_server_dns_record_ids["01"]}"
 }

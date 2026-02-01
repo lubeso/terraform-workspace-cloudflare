@@ -2,7 +2,7 @@ variable "account_name" {
   type = string
 }
 
-variable "dns_record_ids" {
+variable "icloud_mail_server_dns_record_ids" {
   type = map(string)
 }
 
