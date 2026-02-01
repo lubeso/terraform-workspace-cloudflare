@@ -22,5 +22,5 @@ resource "cloudflare_dns_record" "main" {
 
 import {
   to = cloudflare_dns_record.main
-  id = var.dns_record_id
+  id = "${cloudflare_zone.main.id}/${var.dns_record_id}"
 }
