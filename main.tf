@@ -56,7 +56,7 @@ resource "cloudflare_dns_record" "icloud_mail_servers" {
   content  = "mx${each.key}.mail.icloud.com"
 }
 
-resource "cloudflare_dns_record" "icloud_mail_personal" {
+resource "cloudflare_dns_record" "icloud_mail_personal_domain" {
   zone_id = cloudflare_zone.main.id
   name    = "@"
   ttl     = 3600
