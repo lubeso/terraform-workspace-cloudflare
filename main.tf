@@ -11,7 +11,7 @@ resource "cloudflare_zone" "main" {
   type = "full"
 }
 
-resource "cloudflare_dns_record" "main" {
+resource "cloudflare_dns_record" "apex" {
   zone_id = cloudflare_zone.main.id
   name    = "@"
   ttl     = 1
@@ -20,7 +20,20 @@ resource "cloudflare_dns_record" "main" {
   content = var.ip_address
 }
 
+resource "cloudflare_dns_record" "subdomains" {
+  for_each = {
+    for subdomain in var.subdomains
+    : subdomain => true
+  }
+  zone_id = cloudflare_zone.main.id
+  name    = each.key
+  ttl     = 1
+  type    = "A"
+  proxied = false
+  content = var.ip_address
+}
+
 import {
-  to = cloudflare_dns_record.main
-  id = "${cloudflare_zone.main.id}/${var.dns_record_id}"
+  to = cloudflare_dns_record.subdomains["www"]
+  id = "${cloudflare_zone.main.id}/${var.dns_record_ids["www"]}"
 }
