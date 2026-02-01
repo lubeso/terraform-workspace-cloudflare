@@ -40,12 +40,10 @@ resource "cloudflare_dns_record" "icloud_mail_servers" {
   }
   zone_id  = cloudflare_zone.main.id
   name     = "@"
-  ttl      = 1
+  ttl      = 3600
   type     = "MX"
   priority = 10
-  data = {
-    value = "mx${each.key}.mail.icloud.com"
-  }
+  content  = "mx${each.key}.mail.icloud.com"
 }
 
 import {
