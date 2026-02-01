@@ -52,6 +52,7 @@ resource "cloudflare_dns_record" "icloud_mail_servers" {
   name     = "@"
   ttl      = 3600
   type     = "MX"
+  proxied  = false
   priority = 10
   content  = "mx${each.key}.mail.icloud.com"
 }
