@@ -2,7 +2,7 @@ variable "account_name" {
   type = string
 }
 
-variable "icloud_mail_personal_dns_record_id" {
+variable "icloud_mail_dkim_dns_record_id" {
   type = string
 }
 
