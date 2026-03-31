@@ -71,3 +71,12 @@ resource "cloudflare_dns_record" "icloud_mail_spoof_protection" {
   type    = "TXT"
   content = "\"v=spf1 include:icloud.com ~all\""
 }
+
+resource "cloudflare_dns_record" "ghost_blog" {
+  zone_id = cloudflare_zone.main.id
+  name    = "blog"
+  ttl     = 3600
+  type    = "CNAME"
+  proxied = false
+  content = var.ghost_domain
+}

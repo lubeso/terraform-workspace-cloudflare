@@ -17,3 +17,7 @@ variable "subdomains" {
 variable "icloud_mail_personal_domain" {
   type = string
 }
+
+variable "ghost_domain" {
+  type = string
+}
