@@ -80,3 +80,12 @@ resource "cloudflare_dns_record" "ghost_blog" {
   proxied = false
   content = var.ghost_domain
 }
+
+resource "cloudflare_dns_record" "gcp_certificate_manager_dns_authorization" {
+  zone_id = cloudflare_zone.main.id
+  name    = var.gcp_dns_authorization_record_name
+  ttl     = 3600
+  type    = "CNAME"
+  proxied = false
+  content = var.gcp_dns_authorization_record_data
+}
