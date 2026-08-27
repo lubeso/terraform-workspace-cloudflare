@@ -13,7 +13,7 @@ All DNS records are unproxied (`proxied = false`).
 
 ## Requirements
 
-- Terraform ~> 1.15.0 (see `.terraform-version`)
+- Terraform ~> 1.16.0 (see `.terraform-version`)
 - A Cloudflare API token, provided via the provider's standard environment variables (e.g. `CLOUDFLARE_API_TOKEN`) — not as a Terraform variable
 
 ## Usage
