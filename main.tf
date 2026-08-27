@@ -68,15 +68,6 @@ resource "cloudflare_dns_record" "icloud_mail_spoof_protection" {
   content = "\"v=spf1 include:icloud.com ~all\""
 }
 
-resource "cloudflare_dns_record" "ghost_blog" {
-  zone_id = cloudflare_zone.main.id
-  name    = "blog"
-  ttl     = 3600
-  type    = "CNAME"
-  proxied = false
-  content = var.ghost_domain
-}
-
 resource "cloudflare_dns_record" "gcp_certificate_manager_dns_authorization" {
   zone_id = cloudflare_zone.main.id
   name    = var.gcp_dns_authorization_record_name

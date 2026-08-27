@@ -14,10 +14,6 @@ variable "icloud_mail_personal_domain" {
   type = string
 }
 
-variable "ghost_domain" {
-  type = string
-}
-
 variable "gcp_dns_authorization_record_name" {
   type = string
   validation {
