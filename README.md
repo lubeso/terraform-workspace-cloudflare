@@ -5,7 +5,7 @@ Single-workspace Terraform configuration that manages one Cloudflare account, on
 ## What it manages
 
 - The Cloudflare account and zone
-- An apex `A` record and a set of subdomain `A` records, all pointing at the same IP address
+- An apex `A` record and a wildcard `A` record (`*`) covering all subdomains, both pointing at the same IP address (an application load balancer that routes each hostname to its backend)
 - DNS records for iCloud Mail custom domain (DKIM CNAME, two MX records, apple-domain TXT verification, SPF TXT)
 - A `blog` CNAME for Ghost(Pro) hosting
 - A CNAME proving domain control for a Google Cloud Certificate Manager DNS authorization (covers the apex and its wildcard certificate map entry)
@@ -37,8 +37,7 @@ Supply these via a gitignored `.tfvars` file or environment variables:
 | --- | --- |
 | `account_name` | Cloudflare account name |
 | `zone_name` | Cloudflare zone name |
-| `ip_address` | Target A-record IP for the apex and all subdomains |
-| `subdomains` | List of subdomain names, each gets an A record pointed at `ip_address` |
+| `ip_address` | Target A-record IP for the apex and wildcard |
 | `icloud_mail_personal_domain` | Used in the iCloud custom-domain TXT verification record |
 | `ghost_domain` | CNAME target for the `blog` subdomain (Ghost(Pro) hosting) |
 | `gcp_dns_authorization_record_name` | CNAME name for GCP Certificate Manager's DNS authorization |
