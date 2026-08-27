@@ -33,6 +33,18 @@ resource "cloudflare_dns_record" "subdomains" {
   content = var.ip_address
 }
 
+resource "cloudflare_dns_record" "wildcard" {
+  # Temporary: coexists with cloudflare_dns_record.subdomains until wildcard
+  # resolution is validated in production, then the per-subdomain resource
+  # (and var.subdomains) will be removed in a follow-up change.
+  zone_id = cloudflare_zone.main.id
+  name    = "*"
+  ttl     = 1
+  type    = "A"
+  proxied = false
+  content = var.ip_address
+}
+
 resource "cloudflare_dns_record" "icloud_mail_dkim" {
   zone_id = cloudflare_zone.main.id
   name    = "sig1._domainkey"
