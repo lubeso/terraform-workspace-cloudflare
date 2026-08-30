@@ -1,6 +1,6 @@
 # terraform-workspace-cloudflare
 
-Single-workspace Terraform configuration that manages one Cloudflare account, one zone, and its DNS records via the `cloudflare/cloudflare` provider (~> 5.16.0). This is not a reusable module — `main.tf` declares concrete resources directly.
+Single-workspace Terraform configuration that manages one Cloudflare account, one zone, and its DNS records via the `cloudflare/cloudflare` provider (~> 5.24.0). This is not a reusable module — `main.tf` declares concrete resources directly.
 
 ## What it manages
 
