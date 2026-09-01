@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Single-workspace Terraform configuration that manages one Cloudflare account, one zone, and its DNS records via the `cloudflare/cloudflare` provider (~> 5.24.0). This is not a reusable module — `main.tf` declares concrete resources directly (no module blocks, no multi-environment structure).
+Single-workspace Terraform configuration that manages one Cloudflare account, one zone, and its DNS records via the `cloudflare/cloudflare` provider (~> 5.18.0). This is not a reusable module — `main.tf` declares concrete resources directly (no module blocks, no multi-environment structure).
 
 ## Commands
 
