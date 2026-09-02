@@ -5,11 +5,12 @@ Single-workspace Terraform configuration that manages one Cloudflare account, on
 ## What it manages
 
 - The Cloudflare account and zone
-- An apex `A` record and a wildcard `A` record (`*`) covering all subdomains, both pointing at the same IP address (an application load balancer that routes each hostname to its backend)
+- Zone-wide `ssl` (Full strict) and `always_use_https` settings
+- An apex `A` record and a wildcard `A` record (`*`) covering all subdomains, both pointing at the same IP address (a GCP global external Application Load Balancer, HTTPS-only, that routes each hostname to its backend)
 - DNS records for iCloud Mail custom domain (DKIM CNAME, two MX records, apple-domain TXT verification, SPF TXT)
 - A CNAME proving domain control for a Google Cloud Certificate Manager DNS authorization (covers the apex and its wildcard certificate map entry)
 
-All DNS records are unproxied (`proxied = false`).
+The apex and wildcard `A` records are proxied (`proxied = true`), so Cloudflare's edge enforces the `ssl`/`always_use_https` settings for them. Every other record is unproxied (`proxied = false`) — mail and domain-validation records need to resolve directly, not through Cloudflare.
 
 ## Requirements
 
