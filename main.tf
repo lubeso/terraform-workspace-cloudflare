@@ -27,7 +27,7 @@ resource "cloudflare_dns_record" "apex" {
   name    = "@"
   ttl     = 1
   type    = "A"
-  proxied = false
+  proxied = true
   content = var.ip_address
 }
 
@@ -36,7 +36,7 @@ resource "cloudflare_dns_record" "wildcard" {
   name    = "*"
   ttl     = 1
   type    = "A"
-  proxied = false
+  proxied = true
   content = var.ip_address
 }
 
