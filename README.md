@@ -6,6 +6,7 @@ Single-workspace Terraform configuration that manages one Cloudflare account, on
 
 - The Cloudflare account and zone
 - Zone-wide `ssl` (Full strict) and `always_use_https` settings
+- Zone-wide (global) authenticated origin pulls, so Cloudflare presents its shared client certificate to the origin on every request
 - An apex `A` record and a wildcard `A` record (`*`) covering all subdomains, both pointing at the same IP address (a GCP global external Application Load Balancer, HTTPS-only, that routes each hostname to its backend)
 - DNS records for iCloud Mail custom domain (DKIM CNAME, two MX records, apple-domain TXT verification, SPF TXT)
 - A CNAME proving domain control for a Google Cloud Certificate Manager DNS authorization (covers the apex and its wildcard certificate map entry)
