@@ -22,13 +22,18 @@ resource "cloudflare_zone_setting" "always_use_https" {
   value      = "on"
 }
 
-# Global (zone-wide) authenticated origin pulls: Cloudflare presents its
-# shared origin-pull client certificate on every request to the origin. The
-# GCP load balancer must separately be configured to require/validate that
-# certificate for this to actually be enforced end to end.
-resource "cloudflare_authenticated_origin_pulls_settings" "zone" {
-  zone_id = cloudflare_zone.main.id
-  enabled = true
+# Global authenticated origin pulls: Cloudflare presents its shared
+# origin-pull client certificate (no certificate upload required) on every
+# request to the origin. This is distinct from zone-level AOP
+# (cloudflare_authenticated_origin_pulls_settings), which requires uploading
+# a custom certificate via cloudflare_authenticated_origin_pulls_certificate
+# and presents no certificate at all if none is uploaded. The GCP load
+# balancer must separately be configured to require/validate Cloudflare's
+# shared certificate for this to actually be enforced end to end.
+resource "cloudflare_zone_setting" "tls_client_auth" {
+  zone_id    = cloudflare_zone.main.id
+  setting_id = "tls_client_auth"
+  value      = "on"
 }
 
 resource "cloudflare_dns_record" "apex" {
