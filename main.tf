@@ -36,6 +36,40 @@ resource "cloudflare_zone_setting" "tls_client_auth" {
   value      = "on"
 }
 
+# Managed WAF rulesets execute in this phase, in list order. Both are
+# Cloudflare-maintained managed rulesets whose IDs are constant across every
+# account/zone. Requires the zone to be on a plan that includes managed WAF
+# rules (Pro or above) — applying this on a Free zone will fail. Covered by
+# the "Zone WAF" API token permission group, not "Zone Settings".
+resource "cloudflare_ruleset" "waf_managed" {
+  zone_id     = cloudflare_zone.main.id
+  name        = "Managed WAF entry point ruleset"
+  description = "Zone-level WAF Managed Rules config"
+  kind        = "zone"
+  phase       = "http_request_firewall_managed"
+
+  rules = [
+    {
+      ref         = "execute_cloudflare_managed_ruleset"
+      description = "Execute Cloudflare Managed Ruleset"
+      expression  = "true"
+      action      = "execute"
+      action_parameters = {
+        id = "efb7b8c949ac4650a09736fc376e9aee"
+      }
+    },
+    {
+      ref         = "execute_owasp_core_ruleset"
+      description = "Execute Cloudflare OWASP Core Ruleset"
+      expression  = "true"
+      action      = "execute"
+      action_parameters = {
+        id = "4814384a9e5d4991b9815dcfc25d2f1f"
+      }
+    }
+  ]
+}
+
 resource "cloudflare_dns_record" "apex" {
   zone_id = cloudflare_zone.main.id
   name    = "@"
