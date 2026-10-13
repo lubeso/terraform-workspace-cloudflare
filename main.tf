@@ -22,18 +22,14 @@ resource "cloudflare_zone_setting" "always_use_https" {
   value      = "on"
 }
 
-# Global authenticated origin pulls: Cloudflare presents its shared
-# origin-pull client certificate (no certificate upload required) on every
-# request to the origin. This is distinct from zone-level AOP
-# (cloudflare_authenticated_origin_pulls_settings), which requires uploading
-# a custom certificate via cloudflare_authenticated_origin_pulls_certificate
-# and presents no certificate at all if none is uploaded. The GCP load
-# balancer must separately be configured to require/validate Cloudflare's
-# shared certificate for this to actually be enforced end to end.
+# Global authenticated origin pulls: Disabled. Cloudflare does not present
+# an origin-pull client certificate to the origin. The origin GCP load
+# balancer terminates standard one-way TLS without requiring or validating
+# client certificates.
 resource "cloudflare_zone_setting" "tls_client_auth" {
   zone_id    = cloudflare_zone.main.id
   setting_id = "tls_client_auth"
-  value      = "on"
+  value      = "off"
 }
 
 # Managed WAF rulesets execute in this phase, in list order. Both are

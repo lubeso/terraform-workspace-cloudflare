@@ -6,7 +6,8 @@ Single-workspace Terraform configuration that manages one Cloudflare account, on
 
 - The Cloudflare account and zone
 - Zone-wide `ssl` (Full strict) and `always_use_https` settings
-- Zone-wide (global) authenticated origin pulls, so Cloudflare presents its shared client certificate to the origin on every request
+- Zone-wide (global) authenticated origin pulls setting (disabled: `tls_client_auth`
+  set to `off`)
 - The Cloudflare Managed Ruleset and OWASP Core Ruleset, enabled zone-wide via a managed WAF ruleset
 - An apex `A` record and a wildcard `A` record (`*`) covering all subdomains, both pointing at the same IP address (a GCP global external Application Load Balancer, HTTPS-only, that routes each hostname to its backend)
 - DNS records for iCloud Mail custom domain (DKIM CNAME, two MX records, apple-domain TXT verification, SPF TXT)
@@ -46,4 +47,4 @@ Supply these via a gitignored `.tfvars` file or environment variables:
 
 `gcp_dns_authorization_record_name`/`_data` come from a GCP-side `google_certificate_manager_dns_authorization` resource's `dns_resource_record[0].name` / `[0].data` outputs (managed outside this repo). Those outputs include a trailing period; strip it before assigning — both variables reject a trailing period since Cloudflare's API doesn't store one. One authorization on the apex domain covers both the apex and its wildcard certificate map entry, so only one record is needed.
 
-See `CLAUDE.md` for more detailed architecture notes.
+See `AGENTS.md` for more detailed architecture notes.
